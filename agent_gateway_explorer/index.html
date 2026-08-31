@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent Gateway Explorer | Centralized Multi-Project Governance</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-brand">
+        <div class="header-logo-badge">AG</div>
+        <div class="header-title-group">
+          <h1>Agent Gateway Explorer</h1>
+          <p>Cross-Project Centralized Governance, Security & Observability</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="nav-tabs">
+        <button class="nav-tab-btn active" data-tab="topology">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+          Topology & Architecture
+        </button>
+        <button class="nav-tab-btn" data-tab="observability">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+          Observability & SIEM
+        </button>
+        <button class="nav-tab-btn" data-tab="simulator">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          A2A Live Simulator
+        </button>
+        <button class="nav-tab-btn" data-tab="walkthrough">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+          Codelab Walkthrough
+        </button>
+        <button class="nav-tab-btn" data-tab="design-doc">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          Full Design Spec
+        </button>
+      </nav>
+
+      <div class="header-actions">
+        <a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/govern/gateways/agent-gateway-overview" target="_blank" class="btn-pill">
+          Docs ↗
+        </a>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      
+      <!-- TAB 1: TOPOLOGY & ARCHITECTURE -->
+      <section id="tab-topology" class="tab-pane active">
+        <div class="section-banner">
+          <div class="section-banner-title">
+            <h2>Three-Project Governance Architecture</h2>
+            <p>Interactive map of Central Governance, Concierge Orchestrator, and Seller Domain projects.</p>
+          </div>
+          <div class="section-banner-actions">
+            <span class="btn-pill btn-primary" onclick="animateFlow('burger')">▶ Trace Burger Flow (Allow)</span>
+            <span class="btn-pill" onclick="animateFlow('pizza')">▶ Trace Pizza Flow (Deny)</span>
+          </div>
+        </div>
+
+        <!-- 3-Project Card View -->
+        <div class="topology-grid">
+          
+          <!-- PROJECT 1: GOVERNANCE -->
+          <div class="project-card">
+            <div class="project-header gov">
+              <div class="project-title-badge">
+                <div class="project-icon">🏛</div>
+                <div>
+                  <div class="project-name">Central Governance</div>
+                  <div class="project-id-tag" id="label-proj-gov">PROJECT_GOVERNANCE</div>
+                </div>
+              </div>
+              <span class="status-indicator status-active"><span class="status-dot"></span> Host Project</span>
+            </div>
+            <div class="project-body">
+              <div class="resource-box" onclick="inspectResource('agw')">
+                <div class="resource-box-header">
+                  <span class="resource-kind">Network Proxy</span>
+                  <span class="status-indicator status-active"><span class="status-dot"></span> AGENT_TO_ANYWHERE</span>
+                </div>
+                <div class="resource-name">centralized-agw</div>
+                <div class="resource-desc">Regional egress governance proxy intercepting all outbound agent RPCs.</div>
+              </div>
+
+              <div class="resource-box" onclick="inspectResource('registry')">
+                <div class="resource-box-header">
+                  <span class="resource-kind">Service Catalog</span>
+                  <span class="status-indicator status-active"><span class="status-dot"></span> Active Catalog</span>
+                </div>
+                <div class="resource-name">Agent Registry</div>
+                <div class="resource-desc">Central directory of vetted agents, MCP tools, and Core Google APIs.</div>
+              </div>
+
+              <div class="resource-box" onclick="inspectResource('iap')">
+                <div class="resource-box-header">
+                  <span class="resource-kind">Authz Extension</span>
+                  <span class="status-indicator status-active"><span class="status-dot"></span> REQUEST_AUTHZ</span>
+                </div>
+                <div class="resource-name">IAP Security Policy</div>
+                <div class="resource-desc">Identity-Aware Proxy evaluating SPIFFE machine identities per call.</div>
+              </div>
+
+              <div class="resource-box" onclick="inspectResource('obs')">
+                <div class="resource-box-header">
+                  <span class="resource-kind">Telemetry Sink</span>
+                  <span class="status-indicator status-active"><span class="status-dot"></span> SIEM BigQuery</span>
+                </div>
+                <div class="resource-name">Central Audit Log Bucket</div>
+                <div class="resource-desc">Captures all verdicts, DLP findings, and distributed traces.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PROJECT 2: CONCIERGE -->
+          <div class="project-card">
+            <div class="project-header con">
+              <div class="project-title-badge">
+                <div class="project-icon">🛒</div>
+                <div>
+                  <div class="project-name">Purchasing Concierge</div>
+                  <div class="project-id-tag" id="label-proj-con">PROJECT_CONCIERGE</div>
+                </div>
+              </div>
+              <span class="status-indicator status-active"><span class="status-dot"></span> Consumer</span>
+            </div>
+            <div class="project-body">
+              <div class="resource-box" onclick="inspectResource('concierge')">
+                <div class="resource-box-header">
+                  <span class="resource-kind">Reasoning Engine</span>
+                  <span class="status-indicator status-active"><span class="status-dot"></span> AGENT_IDENTITY</span>
+                </div>
+                <div class="resource-name">purchasing-concierge-adk</div>
+                <div class="resource-desc">Orchestrator agent performing dynamic autodiscovery and dispatch.</div>
+              </div>
+
+              <div class="resource-box" onclick="inspectResource('concierge-sa')">
+                <div class="resource-box-header">
+                  <span class="resource-kind">IAM Identity</span>
+                  <span class="status-indicator status-active"><span class="status-dot"></span> SPIFFE Minted</span>
+                </div>
+                <div class="resource-name">Vertex AI Service Agent</div>
+                <div class="resource-desc">Granted cross-project role <code>ar_agw_cross_project_sa</code>.</div>
+              </div>
+
+              <div class="resource-box" onclick="inspectResource('con-log')">
+                <div class="resource-box-header">
+                  <span class="resource-kind">Spoke Telemetry</span>
+                  <span class="status-indicator status-active"><span class="status-dot"></span> Sliced Sinks</span>
+                </div>
+                <div class="resource-name">Concierge Ops Logs</div>
+                <div class="resource-desc">Sliced, redacted operational metrics for consumer monitoring.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PROJECT 3: SELLERS -->
+          <div class="project-card">
+            <div class="project-header sel">
+              <div class="project-title-badge">
+                <div class="project-icon">🍔</div>
+                <div>
+                  <div class="project-name">Seller Domain</div>
+                  <div class="project-id-tag" id="label-proj-sel">PROJECT_SELLERS</div>
+                </div>
+              </div>
+              <span class="status-indicator status-active"><span class="status-dot"></span> Vendor Spoke</span>
+            </div>
+            <div class="project-body">
+              <div class="resource-box" onclick="inspectResource('burger')">
+                <div class="resource-box-header">
+                  <span class="resource-kind">Domain Agent</span>
+                  <span class="status-indicator status-active"><span class="status-dot"></span> ALLOW (200 OK)</span>
+                </div>
+                <div class="resource-name">burger-seller-agent</div>
+                <div class="resource-desc">Specialist agent selling burgers. Bound to <code>roles/iap.egressor</code>.</div>
+              </div>
+
+              <div class="resource-box" onclick="inspectResource('pizza')">
+                <div class="resource-box-header">
+                  <span class="resource-kind">Domain Agent</span>
+                  <span id="badge-pizza-status" class="status-indicator status-denied"><span class="status-dot"></span> DENY (403 Blocked)</span>
+                </div>
+                <div class="resource-name">pizza-seller-agent</div>
+                <div class="resource-desc">Specialist agent selling pizza. Default deny until granted.</div>
+              </div>
+
+              <div class="resource-box" onclick="inspectResource('sel-log')">
+                <div class="resource-box-header">
+                  <span class="resource-kind">Spoke Telemetry</span>
+                  <span class="status-indicator status-active"><span class="status-dot"></span> Sliced Sinks</span>
+                </div>
+                <div class="resource-name">Seller Ops Logs</div>
+                <div class="resource-desc">Inbound invocation performance and throughput telemetry.</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Interactive SVG Diagram Canvas -->
+        <div class="topology-interactive-section">
+          <div class="canvas-toolbar">
+            <h3 style="font-size: 15px; font-weight: 600;">Interactive Data Plane & SPIFFE Flow</h3>
+            <div class="canvas-actions">
+              <button class="btn-pill" onclick="setScenario('burger')">Burger Order (Allowed)</button>
+              <button class="btn-pill" onclick="setScenario('pizza_denied')">Pizza Order (Denied)</button>
+              <button class="btn-pill btn-primary" onclick="togglePizzaPolicy()">Toggle Pizza IAP Policy ⚡</button>
+            </div>
+          </div>
+
+          <div class="svg-canvas-container">
+            <svg id="topology-svg" viewBox="0 0 1000 450" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="gradGov" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#f3e5f5" />
+                  <stop offset="100%" stop-color="#ffffff" />
+                </linearGradient>
+                <linearGradient id="gradCon" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#e3f2fd" />
+                  <stop offset="100%" stop-color="#ffffff" />
+                </linearGradient>
+                <linearGradient id="gradSel" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#fff3e0" />
+                  <stop offset="100%" stop-color="#ffffff" />
+                </linearGradient>
+                <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+                  <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.1" />
+                </filter>
+              </defs>
+
+              <!-- Boundaries -->
+              <rect x="20" y="20" width="300" height="400" rx="14" fill="url(#gradCon)" stroke="#90caf9" stroke-width="1.5" />
+              <text x="35" y="45" font-family="Google Sans, sans-serif" font-weight="600" font-size="13" fill="#1565c0">PROJECT_CONCIERGE</text>
+
+              <rect x="350" y="20" width="300" height="400" rx="14" fill="url(#gradGov)" stroke="#ce93d8" stroke-width="1.5" />
+              <text x="365" y="45" font-family="Google Sans, sans-serif" font-weight="600" font-size="13" fill="#6a1b9a">PROJECT_GOVERNANCE (Central Hub)</text>
+
+              <rect x="680" y="20" width="300" height="400" rx="14" fill="url(#gradSel)" stroke="#ffcc80" stroke-width="1.5" />
+              <text x="695" y="45" font-family="Google Sans, sans-serif" font-weight="600" font-size="13" fill="#e65100">PROJECT_SELLERS</text>
+
+              <!-- Node: Client Request -->
+              <g transform="translate(45, 80)" filter="url(#shadow)">
+                <rect width="250" height="70" rx="8" fill="#ffffff" stroke="#1976d2" stroke-width="1.5" />
+                <text x="15" y="28" font-family="Google Sans, sans-serif" font-weight="600" font-size="12" fill="#1976d2">Client / Playground</text>
+                <text x="15" y="48" font-family="Roboto Mono, monospace" font-size="11" fill="#5f6368">"10 Classic Cheeseburgers"</text>
+              </g>
+
+              <!-- Node: Purchasing Concierge -->
+              <g transform="translate(45, 220)" filter="url(#shadow)">
+                <rect width="250" height="90" rx="8" fill="#ffffff" stroke="#1976d2" stroke-width="1.5" />
+                <text x="15" y="26" font-family="Google Sans, sans-serif" font-weight="600" font-size="12" fill="#1976d2">Purchasing Concierge</text>
+                <text x="15" y="45" font-family="Roboto Mono, monospace" font-size="10.5" fill="#4285f4">AGENT_IDENTITY (SPIFFE)</text>
+                <text x="15" y="65" font-family="Google Sans, sans-serif" font-size="11" fill="#5f6368">Dynamic Autodiscovery Active</text>
+              </g>
+
+              <!-- Node: Central Agent Gateway -->
+              <g transform="translate(375, 120)" filter="url(#shadow)">
+                <rect width="250" height="100" rx="8" fill="#ffffff" stroke="#7b1fa2" stroke-width="2" />
+                <text x="15" y="28" font-family="Google Sans, sans-serif" font-weight="600" font-size="13" fill="#7b1fa2">Central Agent Gateway</text>
+                <text x="15" y="48" font-family="Roboto Mono, monospace" font-size="11" fill="#5f6368">AGENT_TO_ANYWHERE</text>
+                <rect x="15" y="58" width="220" height="26" rx="4" fill="#f3e5f5" />
+                <text x="25" y="75" font-family="Google Sans, sans-serif" font-weight="600" font-size="11" fill="#6a1b9a">IAP Authz: REQUEST_AUTHZ</text>
+              </g>
+
+              <!-- Node: Agent Registry -->
+              <g transform="translate(375, 260)" filter="url(#shadow)">
+                <rect width="250" height="80" rx="8" fill="#ffffff" stroke="#7b1fa2" stroke-width="1.5" />
+                <text x="15" y="28" font-family="Google Sans, sans-serif" font-weight="600" font-size="12" fill="#7b1fa2">Central Agent Registry</text>
+                <text x="15" y="48" font-family="Roboto Mono, monospace" font-size="10.5" fill="#5f6368">core-gapi | burger | pizza</text>
+                <text x="15" y="66" font-family="Google Sans, sans-serif" font-size="10.5" fill="#34a853">roles/iap.egressor policies</text>
+              </g>
+
+              <!-- Node: Burger Seller -->
+              <g transform="translate(705, 120)" filter="url(#shadow)">
+                <rect width="250" height="80" rx="8" fill="#ffffff" stroke="#34a853" stroke-width="2" />
+                <text x="15" y="28" font-family="Google Sans, sans-serif" font-weight="600" font-size="12" fill="#34a853">🍔 Burger Seller Agent</text>
+                <text x="15" y="48" font-family="Roboto Mono, monospace" font-size="10.5" fill="#5f6368">mTLS JSONRPC Endpoint</text>
+                <text x="15" y="66" font-family="Google Sans, sans-serif" font-weight="600" font-size="11" fill="#34a853">Policy: ALLOW (200 OK)</text>
+              </g>
+
+              <!-- Node: Pizza Seller -->
+              <g transform="translate(705, 240)" filter="url(#shadow)">
+                <rect id="svg-pizza-box" width="250" height="80" rx="8" fill="#ffffff" stroke="#ea4335" stroke-width="2" />
+                <text x="15" y="28" font-family="Google Sans, sans-serif" font-weight="600" font-size="12" fill="#ea4335">🍕 Pizza Seller Agent</text>
+                <text x="15" y="48" font-family="Roboto Mono, monospace" font-size="10.5" fill="#5f6368">mTLS JSONRPC Endpoint</text>
+                <text id="svg-pizza-policy-text" x="15" y="66" font-family="Google Sans, sans-serif" font-weight="600" font-size="11" fill="#ea4335">Policy: DENIED (403 Block)</text>
+              </g>
+
+              <!-- Connection Paths -->
+              <path id="path-client-con" d="M 170 150 L 170 220" stroke="#1976d2" stroke-width="2" stroke-dasharray="4" />
+              <path id="path-con-agw" d="M 295 265 C 330 265, 335 170, 375 170" stroke="#7b1fa2" stroke-width="2.5" />
+              <path id="path-agw-reg" d="M 500 220 L 500 260" stroke="#7b1fa2" stroke-width="2" stroke-dasharray="3" />
+              <path id="path-agw-burger" d="M 625 160 L 705 160" stroke="#34a853" stroke-width="2.5" />
+              <path id="path-agw-pizza" d="M 625 180 C 660 180, 665 280, 705 280" stroke="#ea4335" stroke-width="2.5" />
+
+              <!-- Dynamic Animated Packet -->
+              <circle id="anim-packet" cx="0" cy="0" r="6" fill="#1a73e8" style="opacity: 0;">
+                <animate attributeName="r" values="5;8;5" dur="1s" repeatCount="indefinite" />
+              </circle>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Inspector Drawer Card -->
+        <div id="inspector-drawer" class="inspector-card">
+          <div class="inspector-header">
+            <div class="inspector-title" id="inspect-title">🔍 Component Inspector: Central Agent Gateway</div>
+            <span class="btn-pill" onclick="copyInspectorYaml()">Copy Spec YAML</span>
+          </div>
+          <div id="inspect-body">
+            <p style="font-size: 13.5px; color: var(--text-secondary); margin-bottom: 12px;">
+              The Central Agent Gateway (<code>centralized-agw</code>) is deployed in <code>AGENT_TO_ANYWHERE</code> mode in <code>PROJECT_GOVERNANCE</code>. It intercepts outbound calls initiated by Vertex AI Reasoning Engines and invokes IAP Service Extensions to enforce SPIFFE-based authorization.
+            </p>
+            <div class="code-block-container">
+              <div class="code-header"><span>cfg/centralized-agw.yaml</span></div>
+              <pre class="code-content"><code id="inspect-code">name: centralized-agw
+protocols:
+  - MCP
+googleManaged:
+  governedAccessPath: AGENT_TO_ANYWHERE
+registries:
+  - "//agentregistry.googleapis.com/projects/PROJECT_GOVERNANCE/locations/us-central1"</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: OBSERVABILITY & SIEM HUB -->
+      <section id="tab-observability" class="tab-pane">
+        <div class="section-banner">
+          <div class="section-banner-title">
+            <h2>Observability, SIEM & Telemetry Hub</h2>
+            <p>Centralized BigQuery audit sinks, sliced multi-tenant log exports, and OpenTelemetry distributed tracing.</p>
+          </div>
+          <div class="section-banner-actions">
+            <div class="tenant-selector">
+              <button class="tenant-btn active" onclick="setTenantView('central')">🏛 Central SIEM</button>
+              <button class="tenant-btn" onclick="setTenantView('concierge')">🛒 Concierge Spoke</button>
+              <button class="tenant-btn" onclick="setTenantView('sellers')">🍔 Sellers Spoke</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live KPI Metrics -->
+        <div class="obs-metrics-grid">
+          <div class="metric-card">
+            <div class="metric-title">Gateway Invocations / Min</div>
+            <div class="metric-val" id="metric-tps">142 req/m</div>
+            <div class="metric-sub">▲ 12% vs last hour</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-title">IAP Authz Allow Rate</div>
+            <div class="metric-val" id="metric-allow-rate">94.8%</div>
+            <div class="metric-sub" style="color: var(--warning);">5.2% Denied (Default Deny)</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-title">p95 Gateway Proxy Latency</div>
+            <div class="metric-val">18.4 ms</div>
+            <div class="metric-sub">Within SLA (< 25ms)</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-title">Active SPIFFE Identities</div>
+            <div class="metric-val">3 Minted</div>
+            <div class="metric-sub">100% Attested</div>
+          </div>
+        </div>
+
+        <!-- SIEM Table & Distributed Trace Waterfall -->
+        <div class="obs-main-layout">
+          
+          <!-- SIEM Log Explorer -->
+          <div class="obs-card">
+            <div class="obs-card-header">
+              <div style="font-weight: 600; font-size: 14px;" id="siem-table-title">
+                📊 Central SIEM Audit Logs (All Projects & Verdicts)
+              </div>
+              <span class="project-id-tag">BigQuery / Chronicle Sink</span>
+            </div>
+            <div class="siem-table-container">
+              <table class="siem-table">
+                <thead>
+                  <tr>
+                    <th>Time</th>
+                    <th>Caller Principal</th>
+                    <th>Destination Service</th>
+                    <th>IAP Verdict</th>
+                    <th>Status</th>
+                    <th>Latency</th>
+                  </tr>
+                </thead>
+                <tbody id="siem-table-body">
+                  <!-- Generated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Distributed Trace Waterfall -->
+          <div class="obs-card">
+            <div class="obs-card-header">
+              <div style="font-weight: 600; font-size: 14px;">
+                ⚡ OpenTelemetry Distributed Trace
+              </div>
+              <span class="project-id-tag">Trace ID: 7f8a9e10bc</span>
+            </div>
+            <div class="trace-waterfall">
+              <div class="trace-span">
+                <div class="trace-span-header">
+                  <span>1. Client Request Ingress (Playground)</span>
+                  <span style="color: var(--primary);">2 ms</span>
+                </div>
+                <div class="trace-bar-bg"><div class="trace-bar-fill" style="width: 5%; background: #1a73e8;"></div></div>
+              </div>
+
+              <div class="trace-span">
+                <div class="trace-span-header">
+                  <span>2. Concierge LLM Intent Parsing (Gemini 2.5)</span>
+                  <span style="color: #1976d2;">118 ms</span>
+                </div>
+                <div class="trace-bar-bg"><div class="trace-bar-fill" style="width: 35%; margin-left: 5%; background: #1976d2;"></div></div>
+              </div>
+
+              <div class="trace-span">
+                <div class="trace-span-header">
+                  <span>3. Central Agent Gateway Proxy Handshake</span>
+                  <span style="color: #7b1fa2;">8 ms</span>
+                </div>
+                <div class="trace-bar-bg"><div class="trace-bar-fill" style="width: 4%; margin-left: 40%; background: #7b1fa2;"></div></div>
+              </div>
+
+              <div class="trace-span">
+                <div class="trace-span-header">
+                  <span>4. IAP Authz Extension SPIFFE Evaluation</span>
+                  <span style="color: #34a853;">14 ms</span>
+                </div>
+                <div class="trace-bar-bg"><div class="trace-bar-fill" style="width: 6%; margin-left: 44%; background: #34a853;"></div></div>
+              </div>
+
+              <div class="trace-span">
+                <div class="trace-span-header">
+                  <span>5. Seller Agent Execution (Burger Seller)</span>
+                  <span style="color: #e65100;">145 ms</span>
+                </div>
+                <div class="trace-bar-bg"><div class="trace-bar-fill" style="width: 45%; margin-left: 50%; background: #e65100;"></div></div>
+              </div>
+
+              <div class="trace-span">
+                <div class="trace-span-header">
+                  <span>6. Response Egress Return & Masking</span>
+                  <span style="color: var(--primary);">6 ms</span>
+                </div>
+                <div class="trace-bar-bg"><div class="trace-bar-fill" style="width: 5%; margin-left: 95%; background: #1a73e8;"></div></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- TAB 3: A2A LIVE SIMULATOR -->
+      <section id="tab-simulator" class="tab-pane">
+        <div class="section-banner">
+          <div class="section-banner-title">
+            <h2>Multi-Agent Interactive Playground & Log Stream</h2>
+            <p>Test purchasing prompts, toggle real-time IAP policies, and observe live Cloud Logging audit events.</p>
+          </div>
+          <div class="section-banner-actions">
+            <button class="btn-pill btn-primary" onclick="togglePizzaPolicy()">
+              <span id="sim-btn-toggle-text">Toggle Pizza Access (Currently: DENIED)</span>
+            </button>
+            <button class="btn-pill" onclick="clearSimChat()">Clear History</button>
+          </div>
+        </div>
+
+        <div class="simulator-layout">
+          <!-- Chat / Prompt Interface -->
+          <div class="sim-chat-panel">
+            <div class="panel-header">
+              <div class="panel-title">
+                <span class="status-dot" style="background: #1a73e8;"></span>
+                Vertex AI Playground Simulator (PROJECT_CONCIERGE)
+              </div>
+              <span class="project-id-tag">purchasing-concierge-adk</span>
+            </div>
+
+            <div class="chat-history" id="chat-history-container">
+              <div class="chat-bubble system">
+                Session Initialized. Dynamic autodiscovery queried Central Agent Registry. Discovered 2 sellers.
+              </div>
+              <div class="chat-bubble agent">
+                Hello! I am your Purchasing Concierge. How can I assist with your food orders today?
+              </div>
+            </div>
+
+            <div class="prompt-suggestions">
+              <span class="suggestion-chip" onclick="sendPrompt('I would like 10 Classic Cheeseburgers. Place this order now.')">
+                🍔 Order 10 Cheeseburgers (ALLOW)
+              </span>
+              <span class="suggestion-chip" onclick="sendPrompt('I would like 50 BBQ Pizzas. Place this order now.')">
+                🍕 Order 50 BBQ Pizzas (DENY / ALLOW)
+              </span>
+              <span class="suggestion-chip" onclick="sendPrompt('Which food sellers are currently available in the catalog?')">
+                📋 List Available Sellers
+              </span>
+            </div>
+
+            <div class="chat-input-row">
+              <input type="text" id="chat-user-input" class="chat-input" placeholder="Type an order prompt..." onkeypress="handleChatKey(event)">
+              <button class="btn-pill btn-primary" onclick="submitChatInput()">Send</button>
+            </div>
+          </div>
+
+          <!-- Gateway Cloud Logging Stream -->
+          <div class="sim-logs-panel">
+            <div class="panel-header">
+              <div class="panel-title">
+                <span class="status-dot" style="background: #34a853;"></span>
+                Central Agent Gateway Audit Logs (PROJECT_GOVERNANCE)
+              </div>
+              <span class="project-id-tag">networkservices.googleapis.com/gateway_requests</span>
+            </div>
+
+            <div class="logs-terminal" id="logs-terminal-stream">
+              <!-- Dynamic Log Entries -->
+              <div class="log-entry allowed">
+                <div class="log-header">
+                  <span style="color:#9aa0a6;">2026-09-01 22:15:02</span>
+                  <span class="log-badge badge-200">200 OK • ALLOWED</span>
+                </div>
+                <div class="log-url">GET https://agentregistry.googleapis.com/v1alpha/projects/PROJECT_GOVERNANCE/.../services</div>
+                <div class="log-details">
+                  Principal: principalSet://agents.global.org-123456789012.system.id.goog/attribute.platformContainer/aiplatform/projects/PROJECT_NUMBER_CONCIERGE
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: STEP-BY-STEP WALKTHROUGH -->
+      <section id="tab-walkthrough" class="tab-pane">
+        <div class="section-banner">
+          <div class="section-banner-title">
+            <h2>Complete Codelab Guided Walkthrough</h2>
+            <p>Step-by-step implementation guide with copyable commands, architectural diagrams, and key concepts.</p>
+          </div>
+        </div>
+
+        <div class="stepper-container">
+          <!-- Step Nav Sidebar -->
+          <div class="stepper-nav">
+            <div class="step-item active" onclick="goToStep(1)">
+              <div class="step-num">1</div>
+              <div class="step-title">Setup & Project Topology</div>
+            </div>
+            <div class="step-item" onclick="goToStep(2)">
+              <div class="step-num">2</div>
+              <div class="step-title">Register Core Google APIs</div>
+            </div>
+            <div class="step-item" onclick="goToStep(3)">
+              <div class="step-num">3</div>
+              <div class="step-title">Deploy Central Gateway</div>
+            </div>
+            <div class="step-item" onclick="goToStep(4)">
+              <div class="step-num">4</div>
+              <div class="step-title">IAP Authz Extension & Policy</div>
+            </div>
+            <div class="step-item" onclick="goToStep(5)">
+              <div class="step-num">5</div>
+              <div class="step-title">Cross-Project IAM Roles</div>
+            </div>
+            <div class="step-item" onclick="goToStep(6)">
+              <div class="step-num">6</div>
+              <div class="step-title">Deploy Reasoning Engines</div>
+            </div>
+            <div class="step-item" onclick="goToStep(7)">
+              <div class="step-num">7</div>
+              <div class="step-title">Register Agent Endpoints</div>
+            </div>
+            <div class="step-item" onclick="goToStep(8)">
+              <div class="step-num">8</div>
+              <div class="step-title">Live IAP Policy Governance</div>
+            </div>
+          </div>
+
+          <!-- Step Content Body -->
+          <div class="stepper-detail" id="step-detail-content">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: FULL DESIGN SPEC -->
+      <section id="tab-design-doc" class="tab-pane">
+        <div class="section-banner">
+          <div class="section-banner-title">
+            <h2>Agent Gateway Cross-Project Architecture Specification</h2>
+            <p>Full architectural blueprint incorporating Shared VPC, Zero Trust mTLS/SPIFFE, Full-Duplex Egress/Ingress, SIEM Observability, and CI/CD lifecycle.</p>
+          </div>
+        </div>
+
+        <div style="background: var(--bg-surface); padding: 32px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); line-height: 1.7;">
+          <h2 style="font-size: 22px; margin-bottom: 16px; color: var(--text-primary);">1. Executive Architectural Summary</h2>
+          <p style="color: var(--text-secondary); margin-bottom: 24px;">
+            The Centralized Cross-Project Agent Gateway establishes a single administrative, security, and observation hub in a dedicated <strong>Central Governance Project (Shared VPC Host)</strong>. Spoke service projects deploy business agents and domain tools attached to shared subnets, routing all egress and ingress traffic through the central proxy with cryptographically attested SPIFFE identities.
+          </p>
+
+          <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--text-primary);">2. Seven Pillar Comparison Matrix</h3>
+          <div style="overflow-x: auto; margin-bottom: 32px;">
+            <table class="siem-table">
+              <thead>
+                <tr>
+                  <th>Pillar</th>
+                  <th>Architectural Decision</th>
+                  <th>Implementation Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Network Topology</strong></td>
+                  <td>Shared VPC (Host Project)</td>
+                  <td>Central Governance project hosts the Shared VPC, Agent Gateways, and Envoy proxies. Spoke projects attach workloads to shared subnets.</td>
+                </tr>
+                <tr>
+                  <td><strong>Traffic Direction</strong></td>
+                  <td>Full-Duplex (Ingress & Egress)</td>
+                  <td>Inbound client protection (<code>CLIENT_TO_AGENT</code>) and outbound MCP/tool calling governance (<code>AGENT_TO_ANYWHERE</code>).</td>
+                </tr>
+                <tr>
+                  <td><strong>Identity & Auth</strong></td>
+                  <td>Zero Trust mTLS & SPIFFE</td>
+                  <td>Google Cloud CAS issues X.509 certs. IAP & Gatekeeper evaluate per-request CEL rules against caller SPIFFE URNs.</td>
+                </tr>
+                <tr>
+                  <td><strong>Observability</strong></td>
+                  <td>Central SIEM + Sliced Spoke Sinks</td>
+                  <td>BigQuery/Chronicle captures all audit logs & verdicts. Filtered operational metrics and traces exported to respective spoke projects.</td>
+                </tr>
+                <tr>
+                  <td><strong>Tool / MCP Catalog</strong></td>
+                  <td>Hybrid Tool Governance</td>
+                  <td>Central catalog for vetted enterprise tools + federated registration for spoke tools governed by central policies.</td>
+                </tr>
+                <tr>
+                  <td><strong>Data Protection</strong></td>
+                  <td>Inline Policy-Driven DLP</td>
+                  <td>Inline Envoy filters enforce prompt injection defense, schema validation, and Cloud DLP masking.</td>
+                </tr>
+                <tr>
+                  <td><strong>Lifecycle</strong></td>
+                  <td>Terraform / CI-CD Pipelines</td>
+                  <td>Spoke teams declare routes and reasoning engines via scoped cross-project IAM service accounts in CI/CD.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+.system_generated/
+.user_uploaded/
+scratch/
+__pycache__/
+*.pyc
+*.metadata.json
